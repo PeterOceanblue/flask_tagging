@@ -11,20 +11,23 @@ import fitz
 
 # Define colors for each result
 result_colors = {
+    
     # Hermes
     'PASSED': 'lightgreen',
     'FAILED': '#FF6347',
     'UNSUPPORTED': 'lightgrey',
     'NOT APPLICABLE': 'darkgrey',
     'RESTART DETECTED': 'lightblue',
-    'ABORTED': '#990000',
-    'REQUIRES REVIEW': 'lightyellow',
+    'ABORTED': 'orange',
+    'REQUIRES REVIEW': 'grey',
     # Ligada
     'Passed': 'lightgreen',
     'Failed': '#FF6347',
-    'Error': '#990000',
+    'Error': 'orange',
     'No result': 'lightgrey'
 }
+
+plt.rcParams['font.family'] = 'Roboto'
 
 @app.route('/')
 def index():
@@ -80,93 +83,61 @@ def generate_total_report(csv_filename, project_details):
     # Load data
     data = pd.read_csv(csv_filename)
 
-    # Create figure and subplots for project_table results_table and pie chart
+    # Create figure and subplots for project_table, results_table, and pie chart
     fig, axs = plt.subplots(1, 3, figsize=(14, 7))
 
-    # Create table data
-    project_table_data = []
-    for label, value in project_details.items():
-        project_table_data.append([label, value])
-
-    # Set cell colours
-    cell_colours = [['#01546F', '#4EC1E0'] for _ in range(len(project_table_data))]
-
     # Plot Project table
-    table = axs[0].table(cellText=project_table_data, loc='center', cellLoc='center', colWidths=[0.4, 0.6], edges='closed', cellColours=cell_colours)
-    table.auto_set_font_size(True)
-    table.auto_set_column_width([0, 1,])
-    table.set_fontsize(12)
-    table.scale(2, 2)  # Adjust table size
-
-    # Set text colour for each column
+    project_table_data = [[label, value] for label, value in project_details.items()]
+    cell_colours = [['#01546F', '#4EC1E0'] for _ in project_table_data]
+    project_table = axs[0].table(cellText=project_table_data, loc='center', cellLoc='center', colWidths=[0.4, 0.6], edges='closed', cellColours=cell_colours)
+    project_table.auto_set_font_size(True)
+    project_table.auto_set_column_width([0, 1])
+    project_table.set_fontsize(11)
+    project_table.scale(2, 2)  # Adjust table size
     for row in range(len(project_table_data)):
         for col in range(len(project_table_data[0])):
-            cell = table[row, col]
-            if col == 0:
-                cell.set_text_props(color='white')
-            else:
-                cell.set_text_props(color='black')
-                
+            cell = project_table[row, col]
+            text_colour = 'white' if col == 0 else 'black'
+            cell.set_text_props(color=text_colour, weight='bold' if col == 0 else 'normal')  # Set weight to 'bold' for the first column
             cell.set_edgecolor('#01546F')
-
     axs[0].axis('off')
 
     # Calculate result counts and total results
     result_counts = data['results'].value_counts()
-    print(result_counts)
     total_results = result_counts.sum()
 
-    # Create results_table data
+    # Plot Results table
     results_table_data = [['Verdict', 'Count', 'Percentage']]
     results_table_data.append(['Total', total_results, '100%'])
     results_table_data.extend([[result, count, f'{(count / total_results) * 100:.1f}%'] for result, count in result_counts.items()])
-
-    # Set font properties
-    plt.rcParams['font.family'] = 'roboto'
-
-    # Create table subplot
-    axs[1].axis('tight')
-    axs[1].axis('off')
-    table_ = axs[1].table(cellText=results_table_data, loc='center', cellLoc='center', colWidths=[0.2, 0.2, 0.2])
-
-    # Style table
-    table_.auto_set_font_size(False)
-    table_.set_fontsize(11) 
-    table_.scale(2, 2) 
-    table_.auto_set_column_width([0, 1, 2])
-    table_.auto_set_font_size(True)
-    header_cells = table_.get_celld()
-    for key in header_cells:
+    results_table = axs[1].table(cellText=results_table_data, loc='center', cellLoc='center', colWidths=[0.2, 0.2, 0.2])
+    results_table.auto_set_font_size(False)
+    results_table.set_fontsize(11) 
+    results_table.scale(2, 2) 
+    results_table.auto_set_column_width([0, 1, 2])
+    for key, cell in results_table.get_celld().items():
         if key[0] == 0:
-            # Styling header cells
-            header_cells[key].set_facecolor('#01546F')
-            header_cells[key].set_edgecolor('#01546F')
-            header_cells[key].set_text_props(weight='bold', color='white')
-    for key, cell in header_cells.items():
-        if key[0] != 0:
-            # Styling non-header cells
+            cell.set_facecolor('#01546F')
+            cell.set_edgecolor('#01546F')
+            cell.set_text_props(weight='bold', color='white')
+        else:
             cell.set_facecolor('#4EC1E0')
             cell.set_edgecolor('#01546F')
-            cell.set_text_props(weight='bold', color='black')
+            cell.set_text_props(color='black')
+    axs[1].axis('tight')
+    axs[1].axis('off')
 
-    # Create pie chart subplot
+    # Plot Pie chart
     pie_colors = [result_colors[result] for result in result_counts.index]
-    pie = axs[2].pie(result_counts, autopct='%1.1f%%', startangle=140, colors=pie_colors, radius=0.7)
-    legend_labels = result_counts.index
-    
-    axs[2].legend(pie[0], legend_labels, loc="best", fontsize='small')
+    axs[2].pie(result_counts, autopct='%1.1f%%', startangle=140, colors=pie_colors, radius=0.7)
+    axs[2].legend(result_counts.index, loc="best", fontsize='small')
     axs[2].set_aspect('equal')
     axs[2].set_xlim(-1.1, 1.1)
     axs[2].set_ylim(-1.1, 1.1)
 
     # Adjust layout
-    axs[0].axis('off')
     plt.subplots_adjust(wspace=0.5)
-    fig.tight_layout()
     fig.tight_layout(rect=[0, 0.03, 1, 0.97])  # Add more space to the top of the page
-
-    # # show frame
-    # axs[2].set_frame_on(True)
 
     # Get the directory path of the Flask application
     app_dir = os.path.dirname(os.path.abspath(__file__))
@@ -174,31 +145,23 @@ def generate_total_report(csv_filename, project_details):
     # Specify the absolute path of the PDF file in the parent directory
     pdf_filename = os.path.join(os.path.dirname(app_dir), 'Reports/test_results_summary.pdf')
 
+    # Add bar charts
     with PdfPages(pdf_filename) as pdf:
         pdf.savefig(fig)
-      
+
         # Second figure with horizontal bar charts
         stacked_data = data.groupby('tags')['results'].value_counts().unstack().fillna(0)
-        print(stacked_data)
         normalized_data = stacked_data.div(stacked_data.sum(axis=1), axis=0) * 100
-        print(normalized_data)
         colors = [result_colors[result] for result in stacked_data.columns]
 
         # Calculate the height of the figure dynamically based on the number of tags
         height_per_point = 0.3
-        fig_height = height_per_point * len(result_counts)
         fig_height = height_per_point * len(data['tags'].unique())
 
         fig2, ax2 = plt.subplots(figsize=(14, fig_height))  # Adjust height based on number of tags
 
         # Check for the correct spelling of the failed verdict
-        if 'FAILED' in normalized_data.columns:
-            verdict = 'FAILED'
-        elif 'Failed' in normalized_data.columns:
-            verdict = 'Failed'
-        else:
-            # Default to 'Failed' if neither spelling is found
-            verdict = 'Failed'
+        verdict = next((col for col in ['FAILED', 'Failed'] if col in normalized_data.columns), 'Failed')
 
         # Sort the normalized_data DataFrame by the determined verdict column
         normalized_data_sorted = normalized_data.sort_values(by=verdict, ascending=True)
@@ -220,7 +183,7 @@ def generate_total_report(csv_filename, project_details):
                         label,
                         ha='center', va='center',
                         color='black', weight='bold', size=10)
-           
+
         plt.tight_layout()
         pdf.savefig(fig2)  # Second figure with horizontal bar charts
 
@@ -252,6 +215,7 @@ def generate_total_report(csv_filename, project_details):
 
     # Return the filename of the generated PDF
     return pdf_filename
+
 
 @app.route('/generate_total_pdf', methods=['POST'])
 def generate_total_pdf():
