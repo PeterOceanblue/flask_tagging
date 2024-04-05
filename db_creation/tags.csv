@@ -1,0 +1,138 @@
+id,tag
+1,AAC
+2,AC-4
+3,AV Component
+4,AV Control Object
+5,AVC HD 25
+6,AVC SD 25
+7,Accessibility
+8,Adaptation
+9,Advert Insertion
+10,Application Lifecycle
+11,Application Manager
+12,Aspect Ratio
+13,Broadcast Application Launch
+14,Browser
+15,CI-Plus
+16,CSS
+17,Channel Class
+18,ChannelConfig Class
+19,Common Media Application Format
+20,Companion Screen
+21,Content Download
+22,DAE - CE-HTML Profiling
+23,DAE - Capability
+24,DAE - Channel Scan
+25,DAE - Configuration Setting
+26,DAE - Media Playback
+27,DAE - Miscellaneous
+28,DAE - Object Factory
+29,DAE - Overview
+30,DAE - Scheduled Content
+31,DAE - Scheduled Recording
+32,DAE - Shared Utility
+33,DAE- Application Manager
+34,DASH
+35,DASH - BaseURL
+36,DASH - Compatibility
+37,DASH - DTS
+38,DASH - EVENTS
+39,DASH - Error Handling
+40,DASH - Error Reporting
+41,DASH - Events
+42,DASH - ISOBMFF
+43,DASH - Miscellaneous
+44,DASH - On Demand Profile
+45,DASH - Sample Entry
+46,DASH - Timeline
+47,DASH - UHD Colorimetry
+48,DASH - UTCTiming
+49,DASH - XLink
+50,DEMUX
+51,DIAL
+52,DOM
+53,DRM
+54,DSM-CC
+55,DTSE
+56,DVB-I Application
+57,DVB-I Channel
+58,DVB-I Key events
+59,DVB-I Network ID
+60,DVB-I Video Broadcast
+61,Defined Javascript APIs
+62,Device ID
+63,Display Size
+64,Dolby Digital Plus
+65,E-AC3
+66,Encrypted Media Extensions
+67,Font
+68,GIF
+69,H.264-AVC HD
+70,HEVC Temporal Layers
+71,HTML5
+72,HTML5 - 2 Decoders
+73,HTML5 - Graphics Performance
+74,HTTP
+75,HTTPS
+76,Inline Images
+77,JPG
+78,JSON-RPC
+79,Key Event
+80,Key Events
+81,MP4
+82,MPEG-2
+83,MPEG-H
+84,Media Player
+85,Media Source Extension
+86,Media Synchronisation
+87,Metadata API
+88,Metadata APIs
+89,Multiplex
+90,Nordig
+91,Object Factory APIs
+92,Operator Application
+93,Operator Application - Broadcast Supervisor
+94,Operator Application - Browser
+95,Operator Application - Certification
+96,Operator Application - Channel Config
+97,Operator Application - Install
+98,Operator Application - Launch Context
+99,Operator Application - Lifecycle
+100,Operator Application - Regular
+101,Overlap
+102,PMT
+103,PNG
+104,PVR
+105,Parental Rating
+106,Pointer Capability
+107,Privacy
+108,Programme Class
+109,Quiet Channel Change
+110,Reliability
+111,Remote Launch
+112,SD
+113,Scaling
+114,Security
+115,Shared Utility Classes and Features
+116,Signalling
+117,Stability
+118,Stream Events
+119,Subtitles
+120,Targeted Advertising
+121,Targeted Advertising - Capabilities
+122,Targeted Advertising - Errors
+123,Targeted Advertising - HTML5
+124,Targeted Advertising - InThePast
+125,Targeted Advertising - InvalideStateError
+126,Targeted Advertising - Language
+127,Targeted Advertising - Media Source Extensions
+128,Targeted Advertising - NotSupportedError
+129,Targeted Advertising - Reliability
+130,Teletext
+131,Text Entry
+132,Transport Layer Security
+133,UHD
+134,User-Agent Header
+135,VideoBroadcast Object
+136,XML Capabilities
+137,tag

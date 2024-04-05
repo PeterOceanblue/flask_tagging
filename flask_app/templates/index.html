@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV File</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Upload CSV File</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="csv_file" accept=".csv" class="inputfile">
+        <button type="submit">Upload</button>
+    </form>
+
+    <h1>Generate Test Results Overview PDF</h1>
+    <form action="/generate_total_pdf" method="post" enctype="multipart/form-data">
+        <input type="file" name="csv_file" accept=".csv" class="inputfile">
+        <h2>Project Details:</h2>
+        <label for="test_plan">Test Plan:</label>
+        <input type="text" id="test_plan" name="test_plan"><br>
+
+        <label for="project">Project:</label>
+        <input type="text" id="project" name="project"><br>
+
+        <label for="platform">Platform:</label>
+        <input type="text" id="platform" name="platform"><br>
+
+        <label for="serial">Serial:</label>
+        <input type="text" id="serial" name="serial"><br>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model"><br>
+
+        <label for="test_suite">Test Suite:</label>
+        <input type="text" id="test_suite" name="test_suite"><br>
+
+        <button type="submit">Generate</button>
+    </form>
+
+    <h1>Insert Logo into PDF</h1>
+    <form action="/insert_logo_pdf" method="post" enctype="multipart/form-data">
+        <h2>Choose PDF File:</h2>
+        <input type="file" name="pdf_file" accept=".pdf" class="inputfile"><br>
+
+        <h2>Choose Logo File:</h2>
+        <input type="file" name="logo_file" accept=".png, .jpg, .jpeg" class="inputfile"><br>
+
+        <button type="submit">Insert Logo</button>
+    </form>
+
+    <h1>Generate Tags Summary PDF</h1>
+    <form action="/generate_tags_pdf" method="post" enctype="multipart/form-data">
+        <input type="file" name="csv_file" accept=".csv" class="inputfile">
+        <button type="submit">Generate</button>
+    </form>
+
+</body>
+</html>
