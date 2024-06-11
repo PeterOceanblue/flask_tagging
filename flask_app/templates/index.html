@@ -7,53 +7,86 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Upload CSV File</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="csv_file" accept=".csv" class="inputfile">
-        <button type="submit">Upload</button>
-    </form>
+    <div class="page-container">
+        <div class="main-container">
+            <div class="process-container">
+                <h1>Upload CSV File</h1>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="csv_file" accept=".csv" class="inputfile">
+                    <button type="submit">Upload</button>
+                </form>
 
-    <h1>Generate Test Results Overview PDF</h1>
-    <form action="/generate_total_pdf" method="post" enctype="multipart/form-data">
-        <input type="file" name="csv_file" accept=".csv" class="inputfile">
-        <h2>Project Details:</h2>
-        <label for="test_plan">Test Plan:</label>
-        <input type="text" id="test_plan" name="test_plan"><br>
+                <h1>Generate Test Results Overview PDF</h1>
+                <form action="/generate_total_pdf" method="post" enctype="multipart/form-data">
+                    <input type="file" name="csv_file" accept=".csv" class="inputfile">
+                    <h2>Project Details:</h2>
+                    <label for="test_plan">Test Plan:</label>
+                    <input type="text" id="test_plan" name="test_plan"><br>
 
-        <label for="project">Project:</label>
-        <input type="text" id="project" name="project"><br>
+                    <label for="project">Project:</label>
+                    <input type="text" id="project" name="project"><br>
 
-        <label for="platform">Platform:</label>
-        <input type="text" id="platform" name="platform"><br>
+                    <label for="platform">Platform:</label>
+                    <input type="text" id="platform" name="platform"><br>
 
-        <label for="serial">Serial:</label>
-        <input type="text" id="serial" name="serial"><br>
+                    <label for="serial">Serial:</label>
+                    <input type="text" id="serial" name="serial"><br>
 
-        <label for="model">Model:</label>
-        <input type="text" id="model" name="model"><br>
+                    <label for="model">Model:</label>
+                    <input type="text" id="model" name="model"><br>
 
-        <label for="test_suite">Test Suite:</label>
-        <input type="text" id="test_suite" name="test_suite"><br>
+                    <label for="test_suite">Test Suite:</label>
+                    <input type="text" id="test_suite" name="test_suite"><br>
 
-        <button type="submit">Generate</button>
-    </form>
+                    <button type="submit">Generate</button>
+                </form>
 
-    <h1>Insert Logo into PDF</h1>
-    <form action="/insert_logo_pdf" method="post" enctype="multipart/form-data">
-        <h2>Choose PDF File:</h2>
-        <input type="file" name="pdf_file" accept=".pdf" class="inputfile"><br>
+                <h1>Insert Logo into PDF</h1>
+                <form action="/insert_logo_pdf" method="post" enctype="multipart/form-data">
+                    <h2>Choose PDF File:</h2>
+                    <input type="file" name="pdf_file" accept=".pdf" class="inputfile"><br>
 
-        <h2>Choose Logo File:</h2>
-        <input type="file" name="logo_file" accept=".png, .jpg, .jpeg" class="inputfile"><br>
+                    <h2>Choose Logo File:</h2>
+                    <input type="file" name="logo_file" accept=".png, .jpg, .jpeg" class="inputfile"><br>
 
-        <button type="submit">Insert Logo</button>
-    </form>
+                    <button type="submit">Insert Logo</button>
+                </form>
 
-    <h1>Generate Tags Summary PDF</h1>
-    <form action="/generate_tags_pdf" method="post" enctype="multipart/form-data">
-        <input type="file" name="csv_file" accept=".csv" class="inputfile">
-        <button type="submit">Generate</button>
-    </form>
-
+                <h1>Generate Tags Summary PDF</h1>
+                <form action="/generate_tags_pdf" method="post" enctype="multipart/form-data">
+                    <input type="file" name="csv_file" accept=".csv" class="inputfile">
+                    <button type="submit">Generate</button>
+                </form>
+            </div>
+            <div class="info-container">
+                <div class="instructions-container">
+                    <h1>Process Breakdown</h1>
+                    <h3>Upload CSV</h3>
+                    <ol>
+                        <li>Upload a CSV file containing test case IDs in the 1st column and test verdicts in the 2nd column.</li>
+                        <li>The file will be generated in the project root folder.</li>
+                    </ol>
+                    <h3>Generate Test Results Overview PDF</h3>
+                    <ol>
+                        <li>Upload a CSV file containing the tagged test results from the previous Upload CSV File process.</li>
+                        <li>Fill in the project details including Test Plan, Project, Platform, Serial, Model, and Test Suite.</li>
+                        <li>Click 'Generate' to create the PDF.</li>
+                        <li>The PDF will be generated in the downloads folder.</li>
+                    </ol>
+                    <h3>Insert Logo into PDF</h3>
+                    <ol>
+                        <li>Choose the PDF file you want to insert the logo into.</li>
+                        <li>Choose the logo file (PNG, JPG, JPEG) you want to insert.</li>
+                        <li>Click 'Insert Logo' to embed the logo into the PDF.</li>
+                    </ol>
+                    <h3>Generate Tags Summary PDF</h3>
+                    <ol>
+                        <li>Upload a CSV file containing tag data.</li>
+                        <li>Click 'Generate' to create the Tags Summary PDF.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
