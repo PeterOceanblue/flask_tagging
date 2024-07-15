@@ -143,7 +143,12 @@ def generate_total_report(csv_filename, project_details):
     app_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Specify the absolute path of the PDF file in the parent directory
-    pdf_filename = os.path.join(os.path.dirname(app_dir), 'Reports/test_results_summary.pdf')
+    reports_dir = os.path.join(os.path.dirname(app_dir), 'Reports')
+    pdf_filename = os.path.join(reports_dir, 'test_results_summary.pdf')
+
+    # Check if the directory exists, if not, create it
+    if not os.path.isdir(reports_dir):
+        os.makedirs(reports_dir)
 
     # Add bar charts
     with PdfPages(pdf_filename) as pdf:
