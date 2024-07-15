@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+pandas
+matplotlib
+pymupdf
+frontend
