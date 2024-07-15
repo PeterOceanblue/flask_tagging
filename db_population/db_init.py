@@ -1,7 +1,10 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from flask_app import app, db
 from flask_app.models import TestArchive, Tag, TestTag
 import csv
-import os
+
 
 def populate_database_from_single_csv(csv_file):
     with app.app_context():
